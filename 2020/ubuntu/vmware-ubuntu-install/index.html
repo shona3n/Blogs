@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>win10下虚拟机安装ubuntu | Shona's Blog</title><meta name="keywords" content="vmware workstations"><meta name="author" content="Shona,shona.n@foxmail.com"><meta name="copyright" content="Shona"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="win10下安装vmware workstation,并安装ubuntu18.04虚拟机。后续介绍了安装Ubuntu之后的常用软件安装与配置...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="win10下虚拟机安装ubuntu">
+<meta property="og:url" content="https://shona3n.github.io/2020/ubuntu/vmware-ubuntu-install/index.html">
+<meta property="og:site_name" content="Shona&#39;s Blog">
+<meta property="og:description" content="win10下安装vmware workstation,并安装ubuntu18.04虚拟机。后续介绍了安装Ubuntu之后的常用软件安装与配置...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shona3n.github.io/img/per.jpg">
+<meta property="article:published_time" content="2020-04-01T09:00:01.000Z">
+<meta property="article:modified_time" content="2021-08-16T08:44:52.336Z">
+<meta property="article:author" content="Shona">
+<meta property="article:tag" content="vmware workstations">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shona3n.github.io/img/per.jpg"><link rel="shortcut icon" href="/assets/images/page.ico"><link rel="canonical" href="https://shona3n.github.io/2020/ubuntu/vmware-ubuntu-install/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Shona","link":"链接: ","source":"来源: Shona's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-08-16 16:44:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><link rel="stylesheet" href="/self/background.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/assets/images/pumpkin.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">108</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/per.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Shona's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">win10下虚拟机安装ubuntu</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-01T09:00:01.000Z" title="发表于 2020-04-01 17:00:01">2020-04-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-08-16T08:44:52.336Z" title="更新于 2021-08-16 16:44:52">2021-08-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ubuntu/">ubuntu</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>win10下安装vmware workstation,并安装ubuntu18.04虚拟机。后续介绍了安装Ubuntu之后的常用软件安装与配置…</p>
+<span id="more"></span>
+
+<h1 id="win10下虚拟机安装ubuntu"><a href="#win10下虚拟机安装ubuntu" class="headerlink" title="win10下虚拟机安装ubuntu"></a>win10下虚拟机安装ubuntu</h1><h2 id="虚拟机安装"><a href="#虚拟机安装" class="headerlink" title="虚拟机安装"></a>虚拟机安装</h2><p>虚拟机vmware workstations中文官方下载地址：<a href="https://my.vmware.com/cn/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/15_0">VMware-workstation</a><br>选择对应的版本。下载完成后开始安装，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/1.png" alt="1.png"></p>
+<p>点击下一步，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/2.png" alt="2.png"></p>
+<p>勾选“我接受许可协议中的条款”，一直点击下一步，知道输入许可证，点击，可选择输入：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">YC74H</span>-FGF<span class="number">92</span>-<span class="number">081</span>VZ-R<span class="number">5</span>QNG-P<span class="number">6</span>RY<span class="number">4</span></span><br><span class="line"><span class="attribute">YC34H</span>-<span class="number">6</span>WWDK-<span class="number">085</span>MQ-JYPNX-NZRA<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>点击完成。</p>
+<h2 id="虚拟机安装ubuntu"><a href="#虚拟机安装ubuntu" class="headerlink" title="虚拟机安装ubuntu"></a>虚拟机安装ubuntu</h2><p>首先官网<a href="https://ubuntu.com/#download">下载ubuntu</a></p>
+<p>打开虚拟机，点击创建新的虚拟机，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/10.png" alt="avtar"></p>
+<p>选择自定义(高级)，下一步即可，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/11.png" alt="avtar"></p>
+<p>一直点击下一步，选择 稍后安装操作系统，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/12.png" alt="avtar"></p>
+<p>保持默认设置，下一步，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/13.png" alt="avtar"></p>
+<p>设置虚拟机名字，以及保存位置，可使用默认，下一步</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/14.png" alt="avtar"></p>
+<p>后面是内存等的配置，根据电脑需求配置，保持默认也可以。</p>
+<p>直到此处，选择网络类型</p>
+<ul>
+<li><p>桥接模式：是会占用宿主计算机所处的网络环境中的IP地址的，虽然他会占用IP地址，但是可以和同网络环境下的设备进行相互通信。</p>
+</li>
+<li><p>NAT模式：该方式不会占用宿主计算机所处网络环境中的IP地址，他会在宿主计算机中虚拟出一个网络环境，给宿主计算机和虚拟机各分配一个IP地址，也就是说这时的宿主计算机是有两个IP地址的，一个是宿主计算机所处的网络环境中的IP地址，一个是和虚拟机构建的虚拟网络环境中的IP地址，这种方式下，虚拟机可以通过宿主计算机的网络代理访问外界资源，但是外界设备不能访问宿主计算机中的虚拟机。</p>
+</li>
+<li><p>主机模式：这种网络方式，虚拟机只能和宿主计算机进行通信，而不能访问外界设备，更不用说占用IP地址资源了。<br>比较常用的是桥接和NAT模式，这里我选择NAT模式.</p>
+</li>
+</ul>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/15.png" alt="avtar"></p>
+<p>保持默认设置，以下选择创建新虚拟磁盘，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/16.png" alt="avtar"></p>
+<p>存储内存分配，不小于默认分配即可，可以根据需要增加，(拆分与不拆分区别：如果以后要移动这个虚拟机，选择拆分。不移动，选择不拆分)</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/17.png" alt="avtar"></p>
+<p>点击完成</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/18.png" alt="avtar"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/19.png" alt="avtar"></p>
+<p>双击CD/DVD(SATA),选择“使用ISO映像文件“，找到下载好的ubuntu系统，确定</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/20.png" alt="avtar"></p>
+<p>开启此虚拟机。</p>
+<p>可选择中文，或保留默认，点击Install Ubuntu，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/21.png" alt="avtar"></p>
+<p>根据需求选择或保持默认</p>
+<p>使用LVM，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/23.png" alt="avtar"></p>
+<p>Install Now, continue,</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/24.png" alt="avtar"></p>
+<p>设置用户名与密码，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/25.png" alt="avtar"></p>
+<p>等待完成安装，</p>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/26.png" alt="avtar"></p>
+<p>重启</p>
+<h2 id="安装后事项"><a href="#安装后事项" class="headerlink" title="安装后事项"></a>安装后事项</h2><h3 id="问题：界面小，不适应屏幕"><a href="#问题：界面小，不适应屏幕" class="headerlink" title="问题：界面小，不适应屏幕"></a>问题：界面小，不适应屏幕</h3><p><strong>解决：</strong>安装vmware-tools。</p>
+<p>选择菜单栏中虚拟机-&gt;安装vmware-tools,找到相应的压缩文件，解压，并运行：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./vmware-<span class="keyword">install</span>.pl</span><br></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/27.png" alt="avtar"></p>
+<p>重启后，可实现ubuntu与windows之间的粘贴复制。</p>
+<h3 id="更新源"><a href="#更新源" class="headerlink" title="更新源"></a>更新源</h3><ul>
+<li>设置software update，为China-&gt;mirror.aliyun***<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">sudp apt-<span class="builtin-name">get</span> upgrade</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="中文输入法"><a href="#中文输入法" class="headerlink" title="中文输入法"></a>中文输入法</h3><ol>
+<li><p>输入：</p>
+ <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> ibus-pinyin</span><br></pre></td></tr></table></figure></li>
+<li><p>打开Setting-&gt;Region&amp;Language-&gt;Manage Installed Languages</p>
+<p> Keyboard input method system。ibus对应 IBus，fcitx对应XIM。</p>
+<p> 然后，点击Install / Remove Languages… 选择安装中文简体：</p>
+<p> <img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/28.png" alt="avtar"></p>
+<p> 点击+号添加输入法：</p>
+<p> <img src= "/img/loading.gif" data-lazy-src="/2020/ubuntu/vmware-ubuntu-install/29.png" alt="avtar"></p>
+</li>
+</ol>
+<h3 id="其他安装"><a href="#其他安装" class="headerlink" title="其他安装"></a>其他安装</h3><ul>
+<li>网络工具：<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> net-tools</span><br><span class="line">ifconfig -a <span class="comment"># 查看网络IP</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> git</span><br></pre></td></tr></table></figure>
+<p>配置部分参考对应章节。</p>
+<ul>
+<li><p>安装oh my zsh</p>
+</li>
+<li><p>安装VSCode，官网下载对应的安装包即可；</p>
+</li>
+<li><p>配置git账户等</p>
+</li>
+</ul>
+<h3 id="安装编译器"><a href="#安装编译器" class="headerlink" title="安装编译器"></a>安装编译器</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gcc g++ cmake</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:shona.n@foxmail.com">Shona</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shona3n.github.io/2020/ubuntu/vmware-ubuntu-install/">https://shona3n.github.io/2020/ubuntu/vmware-ubuntu-install/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shona3n.github.io" target="_blank">Shona's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vmware-workstations/">vmware workstations</a></div><div class="post_share"><div class="social-share" data-image="/img/per.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assets/images/wechatpay.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/assets/images/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/assets/images/alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/assets/images/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/tool/vscode-guidance/"><img class="prev-cover" data-lazy-src="/img/per.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">VSCode安装与使用</div></div></a></div><div class="next-post pull-right"><a href="/2020/tool/gitbook-install/"><img class="next-cover" data-lazy-src="/img/per.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">GitBook安装与卸载</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/assets/images/pumpkin.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Shona</div><div class="author-info__description">我在过去，我在现在，我在将来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">108</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><a class="button--animated" id="card-info-btn" href="https://github.com/shona3n"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shona3n" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:shona.n@foxmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#win10%E4%B8%8B%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85ubuntu"><span class="toc-number">1.</span> <span class="toc-text">win10下虚拟机安装ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">虚拟机安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85ubuntu"><span class="toc-number">1.2.</span> <span class="toc-text">虚拟机安装ubuntu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%90%8E%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.3.</span> <span class="toc-text">安装后事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A%E7%95%8C%E9%9D%A2%E5%B0%8F%EF%BC%8C%E4%B8%8D%E9%80%82%E5%BA%94%E5%B1%8F%E5%B9%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">问题：界面小，不适应屏幕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%BA%90"><span class="toc-number">1.3.2.</span> <span class="toc-text">更新源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95"><span class="toc-number">1.3.3.</span> <span class="toc-text">中文输入法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.4.</span> <span class="toc-text">其他安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85git"><span class="toc-number">1.3.5.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">1.3.6.</span> <span class="toc-text">安装编译器</span></a></li></ol></li></ol></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Shona</div><div class="footer_custom_text">江河回望</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', '', 'katex-wrap')
+  })
+})()</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/self/background.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>
